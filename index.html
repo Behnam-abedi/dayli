@@ -87,35 +87,25 @@
     /* Tables */
     .table-responsive {
         width: 100%;
-        overflow-x: auto;
         margin-bottom: 50px;
         background: var(--bg-card);
         border-radius: 12px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         border: 1px solid #333;
-    }
-
-    .table-responsive::-webkit-scrollbar {
-        height: 8px;
-    }
-    .table-responsive::-webkit-scrollbar-thumb {
-        background: #444;
-        border-radius: 4px;
-    }
-    .table-responsive::-webkit-scrollbar-thumb:hover {
-        background: var(--accent);
+        overflow: hidden; /* جلوگیری از بیرون زدگی محتوا */
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 700px;
+        table-layout: auto; /* اجازه میده ستون ها بر اساس متن تنظیم بشن */
     }
 
     th, td {
         padding: 15px;
         text-align: center;
         border-bottom: 1px solid #2c2c2c;
+        word-wrap: break-word; /* شکستن کلمات طولانی */
     }
 
     th {
@@ -158,10 +148,24 @@
 
     /* Mobile Adjustments */
     @media (max-width: 768px) {
-        h1 { font-size: 24px; }
+        body {
+            padding: 15px 5px; /* کاهش پدینگ کلی بدنه در موبایل */
+        }
+        h1 { font-size: 22px; }
+        h2 { font-size: 18px; }
+        
         .status-card { padding: 15px; }
-        .status-card h3 { font-size: 18px; }
-        th, td { padding: 10px; font-size: 14px; }
+        .status-card h3 { font-size: 16px; }
+        .time-display { font-size: 16px; }
+        
+        /* فشرده سازی جدول برای جلوگیری از اسکرول */
+        th, td { 
+            padding: 8px 4px; 
+            font-size: 11px; 
+            line-height: 1.4;
+        }
+        
+        td br { margin-top: 2px; }
     }
 </style>
 </head>
@@ -171,7 +175,6 @@
 
     <h1>برنامه انفجاری حجم سینه و دست در ۶۰ روز</h1>
 
-    <!-- پنل وضعیت هوشمند -->
     <div class="status-card" id="status-container">
         <div class="time-display" id="current-time">ساعت: --:--</div>
         <h3 id="status-title">در حال بررسی زمان...</h3>
@@ -258,7 +261,7 @@
         </table>
     </div>
 
-    <h2>برنامه تمرینی (متناسب با وزن ۵۵ کیلو و تجهیزات موجود)</h2>
+    <h2>برنامه تمرینی (متناسب با وزن ۵۵ کیلو)</h2>
     <div class="table-responsive">
         <table>
             <thead>
@@ -270,55 +273,52 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- روز اول -->
                 <tr>
                     <td rowspan="4">شنبه</td>
-                    <td rowspan="4">سینه + پشت بازو<br>(تمرکز روی پف سینه)</td>
+                    <td rowspan="4">سینه + پشت بازو</td>
                     <td>شنا سوئدی کلاسیک</td>
-                    <td>4 × تا ناتوانی (نهایت توان در هر ست)</td>
+                    <td>4 × تا ناتوانی</td>
                 </tr>
                 <tr>
                     <td>شنا دست جمع (الماسی)</td>
-                    <td>3 × تا ناتوانی (برای خط وسط سینه و پشت بازو)</td>
+                    <td>3 × تا ناتوانی</td>
                 </tr>
                 <tr>
                     <td>پرس سینه تک دست با دمبل روی زمین</td>
-                    <td>3 × 12 (هر دست دمبل 12 کیلویی)</td>
+                    <td>3 × 12</td>
                 </tr>
                 <tr>
                     <td>پشت بازو دیپ روی لبه صندلی/تخت</td>
                     <td>4 × 12-15</td>
                 </tr>
 
-                <!-- روز دوم -->
                 <tr>
                     <td rowspan="4">یکشنبه</td>
                     <td rowspan="4">جلو بازو + ساعد</td>
                     <td>جلوبازو هالتر (12 کیلو)</td>
-                    <td>4 × 15 (بسیار کنترل شده و بدون تاب دادن بدن)</td>
+                    <td>4 × 15</td>
                 </tr>
                 <tr>
-                    <td>جلوبازو دمبل تمرکزی (تک دست نشسته)</td>
-                    <td>3 × 10 (هر دست با دمبل 12 کیلو)</td>
+                    <td>جلوبازو دمبل تمرکزی</td>
+                    <td>3 × 10</td>
                 </tr>
                 <tr>
                     <td>جلوبازو چکشی تناوبی</td>
-                    <td>3 × 15 (با دمبل‌های 3 کیلویی - بسیار آهسته انجام شود)</td>
+                    <td>3 × 15</td>
                 </tr>
                 <tr>
                     <td>مچ دست با هالتر 12 کیلو</td>
                     <td>4 × 20</td>
                 </tr>
 
-                <!-- روز سوم -->
                 <tr>
                     <td rowspan="4">دوشنبه</td>
                     <td rowspan="4">پا + شکم</td>
-                    <td>اسکات گابلت (نگه داشتن دمبل 12 در سینه)</td>
-                    <td>4 × 15 (نشستن عمیق و 3 ثانیه مکث در پایین)</td>
+                    <td>اسکات گابلت (دمبل 12 در سینه)</td>
+                    <td>4 × 15</td>
                 </tr>
                 <tr>
-                    <td>پل باسن (خوابیده، هالتر 12 روی لگن)</td>
+                    <td>پل باسن (هالتر 12 روی لگن)</td>
                     <td>3 × 15-20</td>
                 </tr>
                 <tr>
@@ -330,39 +330,37 @@
                     <td>3 × 45 ثانیه</td>
                 </tr>
 
-                <!-- روز چهارم -->
                 <tr>
                     <td rowspan="4">سه‌شنبه</td>
                     <td rowspan="4">سینه بالا + سرشانه</td>
-                    <td>شنا شیب‌دار (پاها روی مبل/تخت)</td>
-                    <td>4 × تا ناتوانی (فشار روی بالاسینه برای خوش فرمی در لباس)</td>
+                    <td>شنا شیب‌دار (پاها بالا)</td>
+                    <td>4 × تا ناتوانی</td>
                 </tr>
                 <tr>
                     <td>پرس سرشانه تک دست (نشسته)</td>
-                    <td>3 × 8-12 (هر دست با دمبل 12 کیلو)</td>
+                    <td>3 × 8-12</td>
                 </tr>
                 <tr>
                     <td>شنا پایک (Pike Push-ups)</td>
-                    <td>3 × تا ناتوانی (قاتل سرشانه با وزن بدن)</td>
+                    <td>3 × تا ناتوانی</td>
                 </tr>
                 <tr>
-                    <td>نشر جانب</td>
-                    <td>3 × 15 (با دمبل 3 کیلو - بالا آوردن دست و 3 ثانیه مکث)</td>
+                    <td>نشر جانب (دمبل 3 کیلو)</td>
+                    <td>3 × 15</td>
                 </tr>
 
-                <!-- روز پنجم -->
                 <tr>
                     <td rowspan="4">چهارشنبه</td>
                     <td rowspan="4">پمپ خون بازوها</td>
-                    <td>سوپرست: جلوبازو هالتر + دیپ پشت بازو</td>
-                    <td>4 × 12 (بدون استراحت بین دو حرکت)</td>
+                    <td>سوپرست: جلوبازو هالتر + دیپ</td>
+                    <td>4 × 12</td>
                 </tr>
                 <tr>
                     <td>جلوبازو دمبل 12 کیلو تک دست</td>
                     <td>3 × 10</td>
                 </tr>
                 <tr>
-                    <td>پشت بازو دمبل 12 پشت گردن (دو دستی)</td>
+                    <td>پشت بازو دمبل 12 دو دستی</td>
                     <td>3 × 12</td>
                 </tr>
                 <tr>
@@ -370,10 +368,9 @@
                     <td>3 × 20</td>
                 </tr>
 
-                <!-- روز ششم -->
                 <tr>
                     <td rowspan="4">پنجشنبه</td>
-                    <td rowspan="4">مرور کل بدن (فول بادی)</td>
+                    <td rowspan="4">فول بادی</td>
                     <td>شنا سوئدی دست باز</td>
                     <td>3 × تا ناتوانی</td>
                 </tr>
@@ -393,7 +390,7 @@
                 <tr>
                     <td>جمعه</td>
                     <td>استراحت</td>
-                    <td colspan="2" style="color: var(--accent); font-weight: bold;">استراحت مطلق برای رشد عضلات و پف کردن دست و سینه</td>
+                    <td colspan="2" style="color: var(--accent); font-weight: bold;">استراحت مطلق برای رشد عضلات</td>
                 </tr>
             </tbody>
         </table>
