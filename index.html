@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برنامه حرفه‌ای افزایش حجم - ویژه خانه</title>
+<style>
+    :root {
+        --bg-main: #121212;
+        --bg-card: #1e1e1e;
+        --bg-hover: #2a2a2a;
+        --text-main: #e0e0e0;
+        --text-muted: #a0a0a0;
+        --accent: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.2);
+        --accent-gold: #ffc107;
+        --gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.8;
+        padding: 20px 10px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    /* Header & Dynamic Card */
+    h1, h2 {
+        text-align: center;
+        color: var(--accent);
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    .status-card {
+        background: var(--gradient);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 40px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .status-card h3 {
+        color: #fff;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .status-card p {
+        color: #e3f2fd;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .time-display {
+        font-size: 20px;
+        color: var(--accent);
+        background: rgba(0,0,0,0.3);
+        padding: 5px 15px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 15px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    /* Tables */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        margin-bottom: 50px;
+        background: var(--bg-card);
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        border: 1px solid #333;
+    }
+
+    .table-responsive::-webkit-scrollbar {
+        height: 8px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 4px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 700px;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #2c2c2c;
+    }
+
+    th {
+        background: rgba(0, 0, 0, 0.4);
+        color: var(--accent);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        color: var(--text-main);
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background-color: var(--bg-hover);
+        transition: background 0.3s ease;
+    }
+
+    td br {
+        display: block;
+        content: "";
+        margin-top: 5px;
+    }
+
+    .highlight-row {
+        background: rgba(0, 229, 255, 0.05);
+        border-left: 3px solid var(--accent);
+        border-right: 3px solid var(--accent);
+    }
+    
+    .gold-row {
+        background: rgba(255, 193, 7, 0.08);
+        border-left: 3px solid var(--accent-gold);
+        border-right: 3px solid var(--accent-gold);
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+        h1 { font-size: 24px; }
+        .status-card { padding: 15px; }
+        .status-card h3 { font-size: 18px; }
+        th, td { padding: 10px; font-size: 14px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>برنامه انفجاری حجم سینه و دست در ۶۰ روز</h1>
+
+    <!-- پنل وضعیت هوشمند -->
+    <div class="status-card" id="status-container">
+        <div class="time-display" id="current-time">ساعت: --:--</div>
+        <h3 id="status-title">در حال بررسی زمان...</h3>
+        <p id="status-desc">لطفا صبر کنید.</p>
+    </div>
+
+    <h2>برنامه غذایی و روزمره</h2>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>زمان</th>
+                    <th>وعده / فعالیت</th>
+                    <th>مواد غذایی / توضیحات</th>
+                    <th>مقدار</th>
+                    <th>مکمل</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08:00</td>
+                    <td>صبحانه</td>
+                    <td>نان لواش<br>پنیر<br>کره<br>مربا</td>
+                    <td>2 عدد<br>50-60 گرم<br>1 قاشق غذاخوری<br>2 قاشق غذاخوری</td>
+                    <td>بیوتین (1 عدد)</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>09:00</td>
+                    <td>شات قهوه</td>
+                    <td>قهوه اسپرسو یا دمی</td>
+                    <td>1 فنجان</td>
+                    <td>-</td>
+                </tr>
+                <tr class="gold-row">
+                    <td>09:15 تا 09:45</td>
+                    <td>چرت طلایی (Coffee Nap)</td>
+                    <td>خواب کوتاه برای پاکسازی گیرنده‌های خستگی</td>
+                    <td>30 دقیقه (حتما آلارم تنظیم شود)</td>
+                    <td>-</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>10:00 تا 11:00</td>
+                    <td>زمان تمرین پرفشار</td>
+                    <td>ورزش طبق برنامه تمرینی با بالاترین سطح انرژی</td>
+                    <td>60 دقیقه</td>
+                    <td>آب کافی حین تمرین</td>
+                </tr>
+                <tr>
+                    <td>11:15</td>
+                    <td>شیک اول (ریکاوری)</td>
+                    <td>شیر پرچرب<br>پودر جوانه گندم<br>خرما<br>کره بادام زمینی</td>
+                    <td>250 میلی‌لیتر<br>50 گرم<br>4 عدد<br>2 قاشق غذاخوری</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>14:00</td>
+                    <td>ناهار</td>
+                    <td>برنج<br>مرغ یا قرمه سبزی<br>سیب زمینی آبپز</td>
+                    <td>15 تا 20 قاشق<br>150-200 گرم مرغ یا 1 بشقاب خورشت<br>2 عدد متوسط</td>
+                    <td>امگا 3 (1 عدد)<br>ویتامین D3 1000 (1 عدد)</td>
+                </tr>
+                <tr>
+                    <td>18:00</td>
+                    <td>عصرانه</td>
+                    <td>خرما<br>گردو</td>
+                    <td>4 عدد<br>4 تا 6 نصفه</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>21:00</td>
+                    <td>شام</td>
+                    <td>برنج<br>مرغ یا خورشت<br>سیب زمینی آبپز</td>
+                    <td>15 تا 20 قاشق<br>مشابه ناهار<br>2 عدد متوسط</td>
+                    <td>ویتامین C (1 عدد)</td>
+                </tr>
+                <tr>
+                    <td>23:30</td>
+                    <td>شیک دوم (قبل خواب)</td>
+                    <td>شیر پرچرب<br>پودر جوانه گندم<br>خرما<br>کره بادام زمینی</td>
+                    <td>250 میلی‌لیتر<br>50 گرم<br>4 عدد<br>2 قاشق غذاخوری</td>
+                    <td>منیزیم ساشه‌ای (1 عدد)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>برنامه تمرینی (متناسب با وزن ۵۵ کیلو و تجهیزات موجود)</h2>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>روز</th>
+                    <th>عضلات هدف</th>
+                    <th>حرکت</th>
+                    <th>ست × تکرار / توضیحات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- روز اول -->
+                <tr>
+                    <td rowspan="4">شنبه</td>
+                    <td rowspan="4">سینه + پشت بازو<br>(تمرکز روی پف سینه)</td>
+                    <td>شنا سوئدی کلاسیک</td>
+                    <td>4 × تا ناتوانی (نهایت توان در هر ست)</td>
+                </tr>
+                <tr>
+                    <td>شنا دست جمع (الماسی)</td>
+                    <td>3 × تا ناتوانی (برای خط وسط سینه و پشت بازو)</td>
+                </tr>
+                <tr>
+                    <td>پرس سینه تک دست با دمبل روی زمین</td>
+                    <td>3 × 12 (هر دست دمبل 12 کیلویی)</td>
+                </tr>
+                <tr>
+                    <td>پشت بازو دیپ روی لبه صندلی/تخت</td>
+                    <td>4 × 12-15</td>
+                </tr>
+
+                <!-- روز دوم -->
+                <tr>
+                    <td rowspan="4">یکشنبه</td>
+                    <td rowspan="4">جلو بازو + ساعد</td>
+                    <td>جلوبازو هالتر (12 کیلو)</td>
+                    <td>4 × 15 (بسیار کنترل شده و بدون تاب دادن بدن)</td>
+                </tr>
+                <tr>
+                    <td>جلوبازو دمبل تمرکزی (تک دست نشسته)</td>
+                    <td>3 × 10 (هر دست با دمبل 12 کیلو)</td>
+                </tr>
+                <tr>
+                    <td>جلوبازو چکشی تناوبی</td>
+                    <td>3 × 15 (با دمبل‌های 3 کیلویی - بسیار آهسته انجام شود)</td>
+                </tr>
+                <tr>
+                    <td>مچ دست با هالتر 12 کیلو</td>
+                    <td>4 × 20</td>
+                </tr>
+
+                <!-- روز سوم -->
+                <tr>
+                    <td rowspan="4">دوشنبه</td>
+                    <td rowspan="4">پا + شکم</td>
+                    <td>اسکات گابلت (نگه داشتن دمبل 12 در سینه)</td>
+                    <td>4 × 15 (نشستن عمیق و 3 ثانیه مکث در پایین)</td>
+                </tr>
+                <tr>
+                    <td>پل باسن (خوابیده، هالتر 12 روی لگن)</td>
+                    <td>3 × 15-20</td>
+                </tr>
+                <tr>
+                    <td>کرانچ شکم</td>
+                    <td>3 × 20</td>
+                </tr>
+                <tr>
+                    <td>پلانک</td>
+                    <td>3 × 45 ثانیه</td>
+                </tr>
+
+                <!-- روز چهارم -->
+                <tr>
+                    <td rowspan="4">سه‌شنبه</td>
+                    <td rowspan="4">سینه بالا + سرشانه</td>
+                    <td>شنا شیب‌دار (پاها روی مبل/تخت)</td>
+                    <td>4 × تا ناتوانی (فشار روی بالاسینه برای خوش فرمی در لباس)</td>
+                </tr>
+                <tr>
+                    <td>پرس سرشانه تک دست (نشسته)</td>
+                    <td>3 × 8-12 (هر دست با دمبل 12 کیلو)</td>
+                </tr>
+                <tr>
+                    <td>شنا پایک (Pike Push-ups)</td>
+                    <td>3 × تا ناتوانی (قاتل سرشانه با وزن بدن)</td>
+                </tr>
+                <tr>
+                    <td>نشر جانب</td>
+                    <td>3 × 15 (با دمبل 3 کیلو - بالا آوردن دست و 3 ثانیه مکث)</td>
+                </tr>
+
+                <!-- روز پنجم -->
+                <tr>
+                    <td rowspan="4">چهارشنبه</td>
+                    <td rowspan="4">پمپ خون بازوها</td>
+                    <td>سوپرست: جلوبازو هالتر + دیپ پشت بازو</td>
+                    <td>4 × 12 (بدون استراحت بین دو حرکت)</td>
+                </tr>
+                <tr>
+                    <td>جلوبازو دمبل 12 کیلو تک دست</td>
+                    <td>3 × 10</td>
+                </tr>
+                <tr>
+                    <td>پشت بازو دمبل 12 پشت گردن (دو دستی)</td>
+                    <td>3 × 12</td>
+                </tr>
+                <tr>
+                    <td>ساعد با دمبل 3 کیلو چرخشی</td>
+                    <td>3 × 20</td>
+                </tr>
+
+                <!-- روز ششم -->
+                <tr>
+                    <td rowspan="4">پنجشنبه</td>
+                    <td rowspan="4">مرور کل بدن (فول بادی)</td>
+                    <td>شنا سوئدی دست باز</td>
+                    <td>3 × تا ناتوانی</td>
+                </tr>
+                <tr>
+                    <td>اسکات گابلت دمبل 12 کیلو</td>
+                    <td>3 × 15</td>
+                </tr>
+                <tr>
+                    <td>نشر جانب (دمبل 3 کیلو آهسته)</td>
+                    <td>3 × 15</td>
+                </tr>
+                <tr>
+                    <td>کرانچ</td>
+                    <td>3 × 20</td>
+                </tr>
+
+                <tr>
+                    <td>جمعه</td>
+                    <td>استراحت</td>
+                    <td colspan="2" style="color: var(--accent); font-weight: bold;">استراحت مطلق برای رشد عضلات و پف کردن دست و سینه</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    const schedule = [
+        { time: 0, title: "وقت استراحت و خواب", desc: "بدن در حال ریکاوری است. خوب بخوابید و عضله‌سازی کنید!" },
+        { time: 8, title: "وقت صبحانه است!", desc: "نان، پنیر، کره، مربا + مکمل بیوتین را میل کنید." },
+        { time: 9, title: "شات قهوه", desc: "یک فنجان قهوه بنوشید و برای خواب کوتاه آماده شوید." },
+        { time: 9.25, title: "چرت طلایی (Coffee Nap)", desc: "ساعت زنگ‌دار را کوک کنید. یک چرت ۳۰ دقیقه‌ای بزنید!" },
+        { time: 9.75, title: "بیداری و گرم کردن", desc: "کافئین به اوج رسیده! بیدار شوید و برای تمرین گرم کنید." },
+        { time: 10, title: "زمان تمرین پرفشار!", desc: "آب کافی بنوشید و با نهایت انرژی تمرین امروز را منفجر کنید." },
+        { time: 11.25, title: "شیک ریکاوری (بعد تمرین)", desc: "عضلات تشنه هستند. شیک جوانه گندم و خرما را سریع بنوشید." },
+        { time: 14, title: "وقت ناهار!", desc: "برنج، مرغ/خورشت + امگا 3 و ویتامین D3 را فراموش نکنید." },
+        { time: 18, title: "وقت عصرانه", desc: "برای حفظ قند خون و انرژی، خرما و گردو را میل کنید." },
+        { time: 21, title: "وقت شام", desc: "وعده شام را همراه با ویتامین C مصرف کنید." },
+        { time: 23.5, title: "شیک دوم (قبل خواب)", desc: "شیک را بنوشید، منیزیم مصرف کنید تا خواب عمیق و ریکاوری عالی داشته باشید." }
+    ];
+
+    function updateStatus() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        const timeString = String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+        document.getElementById('current-time').innerText = `ساعت سیستم: ${timeString}`;
+
+        const currentTimeDecimal = hours + (minutes / 60);
+        let currentActivity = schedule[0]; 
+
+        for (let i = schedule.length - 1; i >= 0; i--) {
+            if (currentTimeDecimal >= schedule[i].time) {
+                currentActivity = schedule[i];
+                break;
+            }
+        }
+
+        if(currentTimeDecimal < 8 && currentTimeDecimal >= 0) {
+            currentActivity = schedule[0];
+        }
+
+        document.getElementById('status-title').innerText = currentActivity.title;
+        document.getElementById('status-desc').innerText = currentActivity.desc;
+        
+        const statusContainer = document.getElementById('status-container');
+        if(currentTimeDecimal >= 9.25 && currentTimeDecimal < 9.75) {
+            statusContainer.style.background = 'linear-gradient(135deg, #b8860b 0%, #d4af37 100%)';
+            statusContainer.style.boxShadow = '0 8px 20px rgba(212, 175, 55, 0.4)';
+        } else {
+            statusContainer.style.background = 'var(--gradient)';
+            statusContainer.style.boxShadow = '0 8px 20px rgba(0,0,0,0.6)';
+        }
+    }
+
+    updateStatus();
+    setInterval(updateStatus, 60000);
+</script>
+
+</body>
+</html>
